@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Início')}"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container py-5 flex-grow-1">
+
+  <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-circle me-2"></i><span th:text="${sucesso}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+
+  <div class="row mb-5 align-items-center">
+    <div class="col-md-8">
+      <h1 class="display-5 fw-bold text-primary mb-2">
+        <i class="bi bi-mortarboard-fill me-2"></i>Sistema de Gestão Escolar
+      </h1>
+      <p class="lead text-muted">Gerencie cursos e alunos com persistência em Azure SQL Server.</p>
+    </div>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="stat-icon bg-primary text-white rounded-3 d-flex align-items-center justify-content-center">
+            <i class="bi bi-journal-bookmark fs-2"></i>
+          </div>
+          <div>
+            <div class="fs-1 fw-bold text-primary" th:text="${totalCursos}">0</div>
+            <div class="text-muted fw-semibold">Cursos cadastrados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="stat-icon bg-success text-white rounded-3 d-flex align-items-center justify-content-center">
+            <i class="bi bi-people fs-2"></i>
+          </div>
+          <div>
+            <div class="fs-1 fw-bold text-success" th:text="${totalAlunos}">0</div>
+            <div class="text-muted fw-semibold">Alunos matriculados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+          <div class="stat-icon bg-info text-white rounded-3 d-flex align-items-center justify-content-center">
+            <i class="bi bi-cloud-check fs-2"></i>
+          </div>
+          <div>
+            <div class="fs-5 fw-bold text-info">Azure</div>
+            <div class="text-muted fw-semibold">SQL Server PaaS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a th:href="@{/cursos}" class="text-decoration-none">
+        <div class="card quick-card border-0 shadow-sm p-4 h-100">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-journal-bookmark text-primary fs-2"></i>
+            <div>
+              <h5 class="mb-0 fw-bold">Gerenciar Cursos</h5>
+              <p class="mb-0 text-muted small">Cadastrar, editar e remover cursos</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto text-muted"></i>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a th:href="@{/alunos}" class="text-decoration-none">
+        <div class="card quick-card border-0 shadow-sm p-4 h-100">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-people text-success fs-2"></i>
+            <div>
+              <h5 class="mb-0 fw-bold">Gerenciar Alunos</h5>
+              <p class="mb-0 text-muted small">Matricular, editar e remover alunos</p>
+            </div>
+            <i class="bi bi-arrow-right ms-auto text-muted"></i>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

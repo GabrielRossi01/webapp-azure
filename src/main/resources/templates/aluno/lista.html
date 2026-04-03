@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Alunos')}"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container py-5 flex-grow-1">
+
+  <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-circle me-2"></i><span th:text="${sucesso}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0"><i class="bi bi-people text-success me-2"></i>Alunos</h2>
+      <p class="text-muted mb-0">Lista de alunos matriculados</p>
+    </div>
+    <a th:href="@{/alunos/novo}" class="btn btn-success">
+      <i class="bi bi-plus-lg me-1"></i>Novo Aluno
+    </a>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4">#</th>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Matrícula</th>
+              <th>Curso</th>
+              <th class="text-center pe-4">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${alunos.empty}">
+              <td colspan="6" class="text-center py-5 text-muted">
+                <i class="bi bi-people fs-2 d-block mb-2"></i>
+                Nenhum aluno matriculado.
+                <a th:href="@{/alunos/novo}" class="d-block mt-2">Matricular primeiro aluno</a>
+              </td>
+            </tr>
+            <tr th:each="a : ${alunos}">
+              <td class="ps-4 text-muted" th:text="${a.idAluno}"></td>
+              <td class="fw-semibold" th:text="${a.nome}"></td>
+              <td class="text-muted small" th:text="${a.email}"></td>
+              <td>
+                <span class="badge bg-secondary-subtle text-secondary fw-semibold" th:text="${a.matricula}"></span>
+              </td>
+              <td>
+                <span class="badge bg-primary-subtle text-primary fw-semibold" th:text="${a.curso?.nome ?: '—'}"></span>
+              </td>
+              <td class="text-center pe-4">
+                <a th:href="@{/alunos/editar/{id}(id=${a.idAluno})}" class="btn btn-sm btn-outline-primary me-1">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button class="btn btn-sm btn-outline-danger"
+                        data-bs-toggle="modal" data-bs-target="#modalDeletar"
+                        th:attr="data-url=@{/alunos/deletar/{id}(id=${a.idAluno})},data-nome=${a.nome}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal confirmação -->
+<div class="modal fade" id="modalDeletar" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle text-danger me-2"></i>Confirmar remoção</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Deseja realmente remover o aluno <strong id="nomeItem"></strong>?
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+        <a id="btnConfirmarDeletar" href="#" class="btn btn-danger">
+          <i class="bi bi-trash me-1"></i>Remover
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
