@@ -1,0 +1,36 @@
+CREATE TABLE Curso (
+    id_curso INT
+        IDENTITY(1,1)
+        PRIMARY KEY,
+    nome VARCHAR(100)  NOT NULL,
+    descricao VARCHAR(500) NULL,
+    carga_horaria INT NOT NULL
+);
+
+CREATE TABLE Aluno (
+    id_aluno INT
+        IDENTITY(1,1)
+        PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    matricula VARCHAR(20) NOT NULL,
+    id_curso INT NOT NULL,
+    CONSTRAINT uq_aluno_email UNIQUE (email),
+    CONSTRAINT uq_aluno_matricula UNIQUE (matricula),
+    CONSTRAINT fk_aluno_curso FOREIGN KEY (id_curso)
+        REFERENCES Curso ( id_curso )
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+INSERT INTO Curso (nome, descricao, carga_horaria) VALUES
+('Análise e Desenvolvimento de Sistemas', 'Curso superior de tecnologia em ADS', 2000),
+('Ciência da Computação', 'Bacharelado em Ciência da Computação', 3200);
+
+INSERT INTO Aluno (nome, email, matricula, id_curso) VALUES
+('João Silva',  'joao.silva@escola.com',  'RM001001', 1),
+('Maria Souza', 'maria.souza@escola.com', 'RM001002', 1),
+('Pedro Costa', 'pedro.costa@escola.com', 'RM002001', 2);
+
+SELECT * FROM curso;
+SELECT * FROM aluno;

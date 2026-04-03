@@ -1,0 +1,18 @@
+az group create --name rg-sql-dimdim --location southafricanorth
+
+az provider register --namespace Microsoft.Sql
+
+az sql server create --name sql-server-dimdim-rm560967-southafricanorth --resource-group rg-sql-dimdim --location southafricanorth --admin-user user-dimdim --admin-password 'Fiap@2tdsvms'--enable-public-network true
+
+az sql db create --resource-group rg-sql-dimdim --server sql-server-dimdim-rm560967-southafricanorth --name db-dimdim --service-objective Basic --backup-storage-redundancy Local --zone-redundant false
+
+az webapp up --resource-group rg-sql-dimdim --location southafricanorth --plan plan-dimdim --name app-dimdim-rm560967 --runtime "JAVA:17-java17" --os-type Linux --sku B1 --logs
+
+az webapp deploy --resource-group rg-sql-dimdim --name app-dimdim-rm560967 --src-path target/escola-api-1.0.0.jar --type jar
+
+az provider register --namespace Microsoft.Insights
+az provider register --namespace Microsoft.OperationalInsights
+
+az extension add --name application-insights
+
+az monitor app-insights component create --app app-dimdim-rm560967-insights --location southafricanorth --resource-group rg-sql-dimdim --application-type web

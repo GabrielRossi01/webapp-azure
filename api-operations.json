@@ -1,0 +1,271 @@
+{
+  "info": {
+    "title": "Escola API",
+    "description": "API REST – Gestão de Cursos e Alunos",
+    "version": "1.0.0",
+    "base_url": "http://localhost:8080",
+    "base_url_producao": "https://escola-api-app.azurewebsites.net",
+    "content_type": "application/json"
+  },
+
+  "cursos": [
+    {
+      "operacao": "GET",
+      "descricao": "Listar todos os cursos",
+      "url": "/api/cursos",
+      "method": "GET",
+      "request_body": null,
+      "response_status": 200,
+      "response_body": [
+        {
+          "idCurso": 1,
+          "nome": "Análise e Desenvolvimento de Sistemas",
+          "descricao": "Curso superior de tecnologia em ADS",
+          "cargaHoraria": 2000
+        },
+        {
+          "idCurso": 2,
+          "nome": "Ciência da Computação",
+          "descricao": "Bacharelado em Ciência da Computação",
+          "cargaHoraria": 3200
+        }
+      ]
+    },
+    {
+      "operacao": "GET",
+      "descricao": "Buscar curso por ID",
+      "url": "/api/cursos/{id}",
+      "url_exemplo": "/api/cursos/1",
+      "method": "GET",
+      "request_body": null,
+      "response_status": 200,
+      "response_body": {
+        "idCurso": 1,
+        "nome": "Análise e Desenvolvimento de Sistemas",
+        "descricao": "Curso superior de tecnologia em ADS",
+        "cargaHoraria": 2000
+      },
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    },
+    {
+      "operacao": "POST",
+      "descricao": "Criar novo curso",
+      "url": "/api/cursos",
+      "method": "POST",
+      "request_body": {
+        "nome": "Engenharia de Software",
+        "descricao": "Bacharelado em Engenharia de Software",
+        "cargaHoraria": 3200
+      },
+      "response_status": 201,
+      "response_body": {
+        "idCurso": 3,
+        "nome": "Engenharia de Software",
+        "descricao": "Bacharelado em Engenharia de Software",
+        "cargaHoraria": 3200
+      }
+    },
+    {
+      "operacao": "PUT",
+      "descricao": "Atualizar curso existente",
+      "url": "/api/cursos/{id}",
+      "url_exemplo": "/api/cursos/3",
+      "method": "PUT",
+      "request_body": {
+        "nome": "Engenharia de Software",
+        "descricao": "Bacharelado em Engenharia de Software – Grade 2025",
+        "cargaHoraria": 3400
+      },
+      "response_status": 200,
+      "response_body": {
+        "idCurso": 3,
+        "nome": "Engenharia de Software",
+        "descricao": "Bacharelado em Engenharia de Software – Grade 2025",
+        "cargaHoraria": 3400
+      },
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    },
+    {
+      "operacao": "DELETE",
+      "descricao": "Remover curso por ID",
+      "url": "/api/cursos/{id}",
+      "url_exemplo": "/api/cursos/3",
+      "method": "DELETE",
+      "request_body": null,
+      "response_status": 204,
+      "response_body": null,
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    }
+  ],
+
+  "alunos": [
+    {
+      "operacao": "GET",
+      "descricao": "Listar todos os alunos",
+      "url": "/api/alunos",
+      "method": "GET",
+      "request_body": null,
+      "response_status": 200,
+      "response_body": [
+        {
+          "idAluno": 1,
+          "nome": "João Silva",
+          "email": "joao.silva@escola.com",
+          "matricula": "RM001001",
+          "curso": {
+            "idCurso": 1,
+            "nome": "Análise e Desenvolvimento de Sistemas",
+            "descricao": "Curso superior de tecnologia em ADS",
+            "cargaHoraria": 2000
+          }
+        },
+        {
+          "idAluno": 2,
+          "nome": "Maria Souza",
+          "email": "maria.souza@escola.com",
+          "matricula": "RM001002",
+          "curso": {
+            "idCurso": 1,
+            "nome": "Análise e Desenvolvimento de Sistemas",
+            "descricao": "Curso superior de tecnologia em ADS",
+            "cargaHoraria": 2000
+          }
+        }
+      ]
+    },
+    {
+      "operacao": "GET",
+      "descricao": "Buscar aluno por ID",
+      "url": "/api/alunos/{id}",
+      "url_exemplo": "/api/alunos/1",
+      "method": "GET",
+      "request_body": null,
+      "response_status": 200,
+      "response_body": {
+        "idAluno": 1,
+        "nome": "João Silva",
+        "email": "joao.silva@escola.com",
+        "matricula": "RM001001",
+        "curso": {
+          "idCurso": 1,
+          "nome": "Análise e Desenvolvimento de Sistemas",
+          "descricao": "Curso superior de tecnologia em ADS",
+          "cargaHoraria": 2000
+        }
+      },
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    },
+    {
+      "operacao": "GET",
+      "descricao": "Listar alunos de um curso específico",
+      "url": "/api/alunos/curso/{idCurso}",
+      "url_exemplo": "/api/alunos/curso/1",
+      "method": "GET",
+      "request_body": null,
+      "response_status": 200,
+      "response_body": [
+        {
+          "idAluno": 1,
+          "nome": "João Silva",
+          "email": "joao.silva@escola.com",
+          "matricula": "RM001001",
+          "curso": {
+            "idCurso": 1,
+            "nome": "Análise e Desenvolvimento de Sistemas"
+          }
+        },
+        {
+          "idAluno": 2,
+          "nome": "Maria Souza",
+          "email": "maria.souza@escola.com",
+          "matricula": "RM001002",
+          "curso": {
+            "idCurso": 1,
+            "nome": "Análise e Desenvolvimento de Sistemas"
+          }
+        }
+      ]
+    },
+    {
+      "operacao": "POST",
+      "descricao": "Matricular novo aluno",
+      "url": "/api/alunos",
+      "method": "POST",
+      "request_body": {
+        "nome": "Ana Lima",
+        "email": "ana.lima@escola.com",
+        "matricula": "RM003001",
+        "idCurso": 1
+      },
+      "response_status": 201,
+      "response_body": {
+        "idAluno": 4,
+        "nome": "Ana Lima",
+        "email": "ana.lima@escola.com",
+        "matricula": "RM003001",
+        "curso": {
+          "idCurso": 1,
+          "nome": "Análise e Desenvolvimento de Sistemas",
+          "descricao": "Curso superior de tecnologia em ADS",
+          "cargaHoraria": 2000
+        }
+      }
+    },
+    {
+      "operacao": "PUT",
+      "descricao": "Atualizar dados do aluno",
+      "url": "/api/alunos/{id}",
+      "url_exemplo": "/api/alunos/4",
+      "method": "PUT",
+      "request_body": {
+        "nome": "Ana Lima Souza",
+        "email": "ana.lima.souza@escola.com",
+        "matricula": "RM003001",
+        "idCurso": 2
+      },
+      "response_status": 200,
+      "response_body": {
+        "idAluno": 4,
+        "nome": "Ana Lima Souza",
+        "email": "ana.lima.souza@escola.com",
+        "matricula": "RM003001",
+        "curso": {
+          "idCurso": 2,
+          "nome": "Ciência da Computação",
+          "descricao": "Bacharelado em Ciência da Computação",
+          "cargaHoraria": 3200
+        }
+      },
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    },
+    {
+      "operacao": "DELETE",
+      "descricao": "Remover aluno por ID",
+      "url": "/api/alunos/{id}",
+      "url_exemplo": "/api/alunos/4",
+      "method": "DELETE",
+      "request_body": null,
+      "response_status": 204,
+      "response_body": null,
+      "response_not_found": {
+        "status": 404,
+        "body": null
+      }
+    }
+  ]
+}
