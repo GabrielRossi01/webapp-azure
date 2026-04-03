@@ -195,4 +195,4 @@ erros e métricas de performance.
 
 > 🎬 Clique na imagem abaixo para assistir no YouTube
 
-[![Assista ao vídeo](https://youtu.be/EbYR3NALDLs)
+[Assista ao vídeo](https://youtu.be/EbYR3NALDLs)
